@@ -7,9 +7,10 @@
 //
 
 #include <iostream>
+#include "Matrix.hpp"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    Matrix<int> A(3, 3, 1);
+    std::cout << A.toString() << "\n";
     return 0;
 }

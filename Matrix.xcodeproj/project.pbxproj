@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20DD54B51F61CA9B00C61FE0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20DD54B41F61CA9B00C61FE0 /* main.cpp */; };
+		20DD54B51F61CA9B00C61FE0 /* RunMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20DD54B41F61CA9B00C61FE0 /* RunMatrix.cpp */; };
+		20DD54BD1F61CAB900C61FE0 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20DD54BB1F61CAB900C61FE0 /* Matrix.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +25,9 @@
 
 /* Begin PBXFileReference section */
 		20DD54B11F61CA9B00C61FE0 /* Matrix */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Matrix; sourceTree = BUILT_PRODUCTS_DIR; };
-		20DD54B41F61CA9B00C61FE0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		20DD54B41F61CA9B00C61FE0 /* RunMatrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RunMatrix.cpp; sourceTree = "<group>"; };
+		20DD54BB1F61CAB900C61FE0 /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
+		20DD54BC1F61CAB900C61FE0 /* Matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +60,9 @@
 		20DD54B31F61CA9B00C61FE0 /* Matrix */ = {
 			isa = PBXGroup;
 			children = (
-				20DD54B41F61CA9B00C61FE0 /* main.cpp */,
+				20DD54B41F61CA9B00C61FE0 /* RunMatrix.cpp */,
+				20DD54BB1F61CAB900C61FE0 /* Matrix.cpp */,
+				20DD54BC1F61CAB900C61FE0 /* Matrix.hpp */,
 			);
 			path = Matrix;
 			sourceTree = "<group>";
@@ -120,7 +125,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20DD54B51F61CA9B00C61FE0 /* main.cpp in Sources */,
+				20DD54BD1F61CAB900C61FE0 /* Matrix.cpp in Sources */,
+				20DD54B51F61CA9B00C61FE0 /* RunMatrix.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
