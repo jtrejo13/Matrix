@@ -7,10 +7,12 @@
 //
 
 #include <iostream>
+#include <gtest/gtest.h>
 #include "Matrix.hpp"
 
-int main(int argc, const char * argv[]) {
-    Matrix<int> A(3, 3, 1);
-    std::cout << A.toString() << "\n";
-    return 0;
+int main(int argc, char * argv[]) {
+//    Matrix<int> A(3, 3, 1);
+//    std::cout << A.toString() << "\n";
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

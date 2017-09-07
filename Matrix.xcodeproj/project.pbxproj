@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		20DD54B51F61CA9B00C61FE0 /* RunMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20DD54B41F61CA9B00C61FE0 /* RunMatrix.cpp */; };
 		20DD54BD1F61CAB900C61FE0 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20DD54BB1F61CAB900C61FE0 /* Matrix.cpp */; };
+		20DD54BF1F61D2F900C61FE0 /* TestMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20DD54BE1F61D2F900C61FE0 /* TestMatrix.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,7 @@
 		20DD54B41F61CA9B00C61FE0 /* RunMatrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RunMatrix.cpp; sourceTree = "<group>"; };
 		20DD54BB1F61CAB900C61FE0 /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
 		20DD54BC1F61CAB900C61FE0 /* Matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
+		20DD54BE1F61D2F900C61FE0 /* TestMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMatrix.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				20DD54B41F61CA9B00C61FE0 /* RunMatrix.cpp */,
 				20DD54BB1F61CAB900C61FE0 /* Matrix.cpp */,
 				20DD54BC1F61CAB900C61FE0 /* Matrix.hpp */,
+				20DD54BE1F61D2F900C61FE0 /* TestMatrix.cpp */,
 			);
 			path = Matrix;
 			sourceTree = "<group>";
@@ -125,6 +128,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20DD54BF1F61D2F900C61FE0 /* TestMatrix.cpp in Sources */,
 				20DD54BD1F61CAB900C61FE0 /* Matrix.cpp in Sources */,
 				20DD54B51F61CA9B00C61FE0 /* RunMatrix.cpp in Sources */,
 			);
@@ -226,6 +230,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 5VP7YKPM9T;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					/usr/local/Cellar/boost/1.64.0_1/include/,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
+				OTHER_LDFLAGS = /usr/local/lib/libgtest.a;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -234,6 +244,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 5VP7YKPM9T;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					/usr/local/Cellar/boost/1.64.0_1/include/,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
+				OTHER_LDFLAGS = /usr/local/lib/libgtest.a;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
