@@ -51,13 +51,13 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T> &rhs) {
 }
 
 ///*//////////////////////Matrix/Matrix operations//////////////////////*/
-//
+
 //template <typename T>
 //Matrix<T> Matrix<T>::operator+(const Matrix<T> &rhs) const
 //{
 //    return Matrix<T>(0, 0);
 //}
-//
+
 //template <typename T>
 //Matrix<T> Matrix<T>::operator-(const Matrix<T> &rhs) const {
 //    return Matrix<T>(0, 0);
@@ -106,56 +106,24 @@ Matrix<T> Matrix<T>::scalarOperation(const T& rhs, std::function<T(T,T)> func) c
 template <typename T>
 Matrix<T> Matrix<T>::operator+(const T &rhs) const
 {
-    //    Matrix<T> result = *this;
-    //
-    //    for (int r = 0; r < _rows; ++r) {
-    //        for (int c = 0; c < _cols; ++c) {
-    //            result(r, c) += rhs;
-    //        }
-    //    }
-    //    return result;
     return scalarOperation(rhs, std::plus<T>());
 }
 
 template <typename T>
 Matrix<T> Matrix<T>::operator-(const T &rhs) const
 {
-    //    Matrix<T> result = *this;
-    //
-    //    for (int r = 0; r < _rows; ++r) {
-    //        for (int c = 0; c < _cols; ++c) {
-    //            result(r, c) -= rhs;
-    //        }
-    //    }
-    //    return result;
     return scalarOperation(rhs, std::minus<T>());
 }
 
 template <typename T>
 Matrix<T> Matrix<T>::operator*(const T &rhs) const
 {
-    //    Matrix<T> result = *this;
-    //
-    //    for (int r = 0; r < _rows; ++r) {
-    //        for (int c = 0; c < _cols; ++c) {
-    //            result(r, c) *= rhs;
-    //        }
-    //    }
-    //    return result;
     return scalarOperation(rhs, std::multiplies<T>());
 }
 
 template <typename T>
 Matrix<T> Matrix<T>::operator/(const T &rhs) const
 {
-    //    Matrix<T> result = *this;
-    //
-    //    for (int r = 0; r < _rows; ++r) {
-    //        for (int c = 0; c < _cols; ++c) {
-    //            result(r, c) /= rhs;
-    //        }
-    //    }
-    //    return result;
     return scalarOperation(rhs, std::divides<T>());
 }
 
@@ -209,7 +177,7 @@ template <typename T>
 std::string Matrix<T>::toString() const
 {
     std::ostringstream sout;
-    sout << "[ ";
+    sout << "{ ";
     for (int r = 0; r < _rows; ++r) {
         sout << "{";
         for (int c = 0; c < _cols; ++c) {
@@ -218,7 +186,7 @@ std::string Matrix<T>::toString() const
         }
         sout << " } ";
     }
-    sout << "]";
+    sout << "}";
     return sout.str();
 }
 
