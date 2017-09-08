@@ -14,7 +14,7 @@
 template <typename T>
 Matrix<T>::Matrix(size_t rows, size_t cols, const T& initial) {
     _mat.resize(cols);
-    for (int c = 0; c < cols; ++c) {
+    for (uint c = 0; c < cols; ++c) {
         _mat[c].resize(rows, initial);
     }
     _rows = rows;
@@ -52,37 +52,96 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T> &rhs) {
 
 ///*//////////////////////Matrix/Matrix operations//////////////////////*/
 
-//template <typename T>
-//Matrix<T> Matrix<T>::operator+(const Matrix<T> &rhs) const
-//{
-//    return Matrix<T>(0, 0);
-//}
+template <typename T>
+Matrix<T> Matrix<T>::elementByElementOp(const Matrix<T> &rhs, std::function<T(T,T)> func) const
+{
+    if (rhs._rows != _rows || rhs._cols != _cols) {
+        throw std::length_error("Matrix dimensions must agree");
+    }
+    
+    Matrix<T> result(_rows, _cols);
+    for (uint c = 0; c < _cols; ++c) {
+        for (uint r = 0; r < _rows; ++r) {
+            result(r, c) = func(this->operator()(r, c) , rhs.operator()(r, c));
+        }
+    }
+    return result;
+}
 
-//template <typename T>
-//Matrix<T> Matrix<T>::operator-(const Matrix<T> &rhs) const {
-//    return Matrix<T>(0, 0);
-//}
-//
-//template <typename T>
-//Matrix<T> Matrix<T>::operator*(const Matrix<T> &rhs) const {
-//    return Matrix<T>(0, 0);
-//}
-//
-//template <typename T>
-//Matrix<T> &Matrix<T>::operator+=(const Matrix<T> &rhs) {
-//    return Matrix<T>(0, 0);
-//}
-//
-//template <typename T>
-//Matrix<T> &Matrix<T>::operator-=(const Matrix<T> &rhs) {
-//    return Matrix<T>(0, 0);
-//}
-//
-//template <typename T>
-//Matrix<T> &Matrix<T>::operator*=(const Matrix<T> &rhs) {
-//    return Matrix<T>(0, 0);
-//}
-//
+template <typename T>
+void Matrix<T>::elementByElementOp(const Matrix<T> &rhs, std::function<T(T,T)> func)
+{
+    if (rhs._rows != _rows || rhs._cols != _cols) {
+        throw std::length_error("Matrix dimensions must agree.");
+    }
+    
+    for (uint c = 0; c < _cols; ++c) {
+        for (uint r = 0; r < _rows; ++r) {
+            this->operator()(r, c) = func(this->operator()(r, c) , rhs.operator()(r, c));
+        }
+    }
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::matrixMultiplication(const Matrix<T> &rhs) const
+{
+    if (_cols != rhs._rows) {
+        throw std::length_error("Inner matrix dimensions must agree.");
+    }
+    
+    /*Multiplying sizes 'n x m' by 'm x p', resulting in an n x p Matrix*/
+    Matrix<T> result(_rows, rhs._cols);
+    for (uint n = 0; n < _rows; ++n) {
+        for (uint p = 0; p < rhs._cols; ++p) {
+            T sum = T();
+            for (uint m = 0; m < _cols; ++m) {
+                sum += this->operator()(n , m) * rhs(m, p);
+            }
+            result(n, p) = sum;
+        }
+    }
+    return result;
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::operator+(const Matrix<T> &rhs) const
+{
+    return elementByElementOp(rhs, std::plus<T>());
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::operator-(const Matrix<T> &rhs) const
+{
+    return elementByElementOp(rhs, std::minus<T>());
+}
+
+template <typename T>
+Matrix<T> &Matrix<T>::operator+=(const Matrix<T> &rhs)
+{
+    elementByElementOp(rhs, std::plus<T>());
+    return *this;
+}
+
+template <typename T>
+Matrix<T> &Matrix<T>::operator-=(const Matrix<T> &rhs)
+{
+    elementByElementOp(rhs, std::minus<T>());
+    return *this;
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::operator*(const Matrix<T> &rhs) const
+{
+    return matrixMultiplication(rhs);
+}
+
+template <typename T>
+Matrix<T> &Matrix<T>::operator*=(const Matrix<T> &rhs)
+{
+    *this = matrixMultiplication(rhs);
+    return *this;
+}
+
 //template <typename T>
 //Matrix<T> Matrix<T>::transpose() const {
 //    return Matrix<T>(0, 0);
@@ -95,9 +154,9 @@ Matrix<T> Matrix<T>::scalarOperation(const T& rhs, std::function<T(T,T)> func) c
 {
     Matrix<T> result = Matrix(*this);
     
-    for (int r = 0; r < _rows; ++r) {
-        for (int c = 0; c < _cols; ++c) {
-            result(r, c) = func(this->operator()(r, c), rhs);
+    for (uint c = 0; c < _cols; ++c) {
+        for (uint r = 0; r < _rows; ++r) {
+            result(r, c) = func(this->operator()(r, c) , rhs);
         }
     }
     return result;
@@ -178,9 +237,9 @@ std::string Matrix<T>::toString() const
 {
     std::ostringstream sout;
     sout << "{ ";
-    for (int r = 0; r < _rows; ++r) {
+    for (uint r = 0; r < _rows; ++r) {
         sout << "{";
-        for (int c = 0; c < _cols; ++c) {
+        for (uint c = 0; c < _cols; ++c) {
             sout << " " << this->at(r, c);
             if (c != _cols - 1) { sout << ","; }
         }

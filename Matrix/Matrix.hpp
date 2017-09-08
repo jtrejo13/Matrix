@@ -20,7 +20,12 @@ private:
     std::vector<std::vector<T> > _mat;
     size_t _rows;
     size_t _cols;
+    
+    //Helper Functions
     Matrix<T> scalarOperation(const T& rhs, std::function<T(T,T)> func) const;
+    Matrix<T> elementByElementOp(const Matrix<T> &rhs, std::function<T(T,T)> func) const;
+    void elementByElementOp(const Matrix<T> &rhs, std::function<T(T,T)> func);
+    Matrix<T> matrixMultiplication(const Matrix<T> &rhs) const;
     
 public:
     
@@ -38,15 +43,15 @@ public:
     //Copy assignment
     Matrix<T>& operator=(const Matrix<T>& rhs);
     //
-    //    //Matrix/Matrix operations
-    //    Matrix<T> operator+(const Matrix<T>& rhs) const;
-    //    Matrix<T> operator-(const Matrix<T>& rhs) const;
-    //    Matrix<T> operator*(const Matrix<T>& rhs) const;
-    //    Matrix<T>& operator+=(const Matrix<T>& rhs);
-    //    Matrix<T>& operator-=(const Matrix<T>& rhs);
-    //    Matrix<T>& operator*=(const Matrix<T>& rhs);
-    //    Matrix<T> transpose() const;
-    //
+    //Matrix/Matrix operations
+    Matrix<T> operator+(const Matrix<T>& rhs) const;
+    Matrix<T> operator-(const Matrix<T>& rhs) const;
+    Matrix<T>& operator+=(const Matrix<T>& rhs);
+    Matrix<T>& operator-=(const Matrix<T>& rhs);
+    Matrix<T> operator*(const Matrix<T>& rhs) const;
+    Matrix<T>& operator*=(const Matrix<T>& rhs);
+//    Matrix<T> transpose() const;
+    
     //Matrix/Scalar operations
     Matrix<T> operator+(const T& rhs) const;
     Matrix<T> operator-(const T& rhs) const;
@@ -68,6 +73,7 @@ public:
     
     //Print Matrix
     std::string toString() const;
+    //std::tring toString2D() const;
     
     //    //Iterators
     //    iterator begin();

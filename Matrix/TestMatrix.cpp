@@ -112,3 +112,64 @@ TEST(test_matrix, test_scalarOp_div_2)
     ASSERT_EQ(B.toString(), "{ { 0 } }");
 }
 
+////////////////////////////
+//    Matrix/Matrix Ops   //
+////////////////////////////
+
+TEST(test_matrix, test_mat_matOp_sum_1)
+{
+    Matrix<double> A(3, 3, 2);
+    Matrix<double> B(3, 3, 5);
+    Matrix<double> C = A + B;
+    ASSERT_EQ(C.toString(), "{ { 7, 7, 7 } { 7, 7, 7 } { 7, 7, 7 } }");
+}
+
+TEST(test_matrix, test_mat_matOp_sum_2)
+{
+    Matrix<double> A(3, 3, 2);
+    Matrix<double> B(4, 4, 5);
+    Matrix<double> C;
+    ASSERT_THROW(C = A + B, std::length_error);
+}
+
+TEST(test_matrix, test_mat_matOp_sub_1)
+{
+    Matrix<double> A(3, 3, 10);
+    Matrix<double> B(3, 3, 3);
+    Matrix<double> C = A - B;
+    ASSERT_EQ(C.toString(), "{ { 7, 7, 7 } { 7, 7, 7 } { 7, 7, 7 } }");
+}
+
+TEST(test_matrix, test_mat_matOp_sumEQ_1)
+{
+    Matrix<double> A(3, 3, 2);
+    Matrix<double> B(3, 3, 5);
+    A += B;
+    ASSERT_EQ(A.toString(), "{ { 7, 7, 7 } { 7, 7, 7 } { 7, 7, 7 } }");
+}
+
+TEST(test_matrix, test_mat_matOp_subEQ_1)
+{
+    Matrix<double> A(3, 3, 10.5);
+    Matrix<double> B(3, 3, 3.5);
+    A -= B;
+    ASSERT_EQ(A.toString(), "{ { 7, 7, 7 } { 7, 7, 7 } { 7, 7, 7 } }");
+}
+
+
+TEST(test_matrix, test_mat_matOp_mult_1)
+{
+    Matrix<double> A(3, 3, 2);
+    Matrix<double> B(3, 3, 5);
+    Matrix<double> C = A * B;
+    ASSERT_EQ(C.toString(), "{ { 30, 30, 30 } { 30, 30, 30 } { 30, 30, 30 } }");
+}
+
+TEST(test_matrix, test_mat_matOp_multEQ_1)
+{
+    Matrix<double> A(3, 3, 2);
+    Matrix<double> B(3, 3, 5);
+    A *= B;
+    ASSERT_EQ(A.toString(), "{ { 30, 30, 30 } { 30, 30, 30 } { 30, 30, 30 } }");
+}
+
