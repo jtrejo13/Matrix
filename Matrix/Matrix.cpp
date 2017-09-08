@@ -188,11 +188,38 @@ Matrix<T> Matrix<T>::operator/(const T &rhs) const
 
 
 ///*//////////////////////Matrix/Vector operations//////////////////////*/
-//
-//template <typename T>
-//std::vector<T> Matrix<T>::operator*(const std::vector<T> &rhs) const {
-//    return std::vector<T>();
-//}
+
+template <typename T>
+std::vector<T> Matrix<T>::operator*(const std::vector<T> &rhs) const
+{
+    if (_cols != rhs.size()) {
+        throw std::length_error("Vector dimensions must agree.");
+    }
+    /*Multiplying sizes 'n x m' by 'm x 1', resulting in an n x 1 vector*/
+    std::vector<T> result{};
+    for (uint n = 0; n < _rows; ++n) {
+        for (uint p = 0; p < 1; ++p) {
+            T sum = T();
+            for (uint m = 0; m < _cols; ++m) {
+                sum += this->operator()(n , m) * rhs.at(m);
+            }
+            result.push_back(sum);
+        }
+    }
+    return result;
+}
+
+template <typename T>
+std::vector<T> Matrix<T>::diag_vec() const
+{
+    std::vector<T> diag{};
+    for (uint c = 0; c < _cols; ++c) {
+        for (uint r = 0; r < _rows; ++r) {
+            if (c == r) diag.push_back(this->operator()(r, c));
+        }
+    }
+    return diag;
+}
 
 
 /*//////////////////////Element Access functions//////////////////////*/

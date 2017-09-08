@@ -58,8 +58,9 @@ public:
     Matrix<T> operator*(const T& rhs) const;
     Matrix<T> operator/(const T& rhs) const;
     
-    //    //Matrix/Vector operations
-    //    std::vector<T> operator*(const std::vector<T>& rhs) const;
+    //Matrix/Vector operations
+    std::vector<T> operator*(const std::vector<T>& rhs) const;
+    std::vector<T> diag_vec() const;
     
     //Element Access functions
     T& at(const size_t& row, const size_t& col);

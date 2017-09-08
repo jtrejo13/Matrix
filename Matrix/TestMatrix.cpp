@@ -173,3 +173,25 @@ TEST(test_matrix, test_mat_matOp_multEQ_1)
     ASSERT_EQ(A.toString(), "{ { 30, 30, 30 } { 30, 30, 30 } { 30, 30, 30 } }");
 }
 
+////////////////////////////
+//    Matrix/Vector Ops   //
+////////////////////////////
+
+TEST(test_matrix, test_mat_vecOp_mult_1)
+{
+    Matrix<double>      A(3, 3, 2);
+    std::vector<double> x(3, 2);
+    std::vector<double> b = A * x;
+    ASSERT_EQ(b, std::vector<double>(3, 12));
+}
+
+TEST(test_matrix, test_mat_vecOp_mult_2)
+{
+    Matrix<double>      A(3, 3, 2);
+    std::vector<double> x(10, 2);
+    std::vector<double> b;
+    ASSERT_THROW(b = A * x, std::length_error);
+}
+
+//TODO -> WRITE UNIT TEST FOR DIAG METHOD
+
