@@ -30,6 +30,27 @@ Matrix<T>::Matrix() {
 }
 
 template <typename T>
+Matrix<T>::Matrix(size_t rows, size_t cols, std::initializer_list<T> init) {
+    if (rows * cols != init.size()) {
+        throw std::length_error("Initializer list dimensions must agree");
+    }
+    _mat.resize(cols);
+    for (uint c = 0; c < cols; ++c) {
+        _mat[c].resize(rows);
+    }
+    
+    auto begin = init.begin();
+    for (uint r = 0; r < rows; ++r) {
+        for (uint c = 0; c < cols; ++c) {
+            _mat.at(c).at(r) = *begin;
+            ++begin;
+        }
+    }
+    _rows = rows;
+    _cols = cols;
+}
+
+template <typename T>
 Matrix<T>::~Matrix() {
     std::cout << "Matrix Destroyed" << std::endl;
 }
@@ -209,19 +230,6 @@ std::vector<T> Matrix<T>::operator*(const std::vector<T> &rhs) const
     return result;
 }
 
-template <typename T>
-std::vector<T> Matrix<T>::diag_vec() const
-{
-    std::vector<T> diag{};
-    for (uint c = 0; c < _cols; ++c) {
-        for (uint r = 0; r < _rows; ++r) {
-            if (c == r) diag.push_back(this->operator()(r, c));
-        }
-    }
-    return diag;
-}
-
-
 /*//////////////////////Element Access functions//////////////////////*/
 
 template <typename T>
@@ -247,15 +255,14 @@ const T &Matrix<T>::operator()(const size_t &row, const size_t &col) const {
 /*//////////////////////Access row and column sizes//////////////////////*/
 
 template <typename T>
-size_t Matrix<T>::getRows() const {
+size_t Matrix<T>::size_rows() const {
     return _rows;
 }
 
 template <typename T>
-size_t Matrix<T>::getCols() const {
+size_t Matrix<T>::size_cols() const {
     return _cols;
 }
-
 
 /*//////////////////////Printing//////////////////////*/
 
@@ -276,7 +283,19 @@ std::string Matrix<T>::toString() const
     return sout.str();
 }
 
+/*//////////////////////Matrix Properties//////////////////////*/
 
+template <typename T>
+std::vector<T> Matrix<T>::diag_vec() const
+{
+    std::vector<T> diag{};
+    for (uint c = 0; c < _cols; ++c) {
+        for (uint r = 0; r < _rows; ++r) {
+            if (c == r) diag.push_back(this->operator()(r, c));
+        }
+    }
+    return diag;
+}
 
 /*//////////////////////Iterators//////////////////////*/
 

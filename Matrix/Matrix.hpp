@@ -36,6 +36,7 @@ public:
     Matrix();
     Matrix(size_t rows, size_t cols, const T& initial = T());
     Matrix(const Matrix<T>& rhs);
+    Matrix(size_t rows, size_t cols, std::initializer_list<T> init);
     
     //Destructor
     ~Matrix();
@@ -69,8 +70,8 @@ public:
     const T& operator()(const size_t& row, const size_t& col) const;
     
     //Access row and column sizes
-    size_t getRows() const;
-    size_t getCols() const;
+    size_t size_rows() const;
+    size_t size_cols() const;
     
     //Print Matrix
     std::string toString() const;

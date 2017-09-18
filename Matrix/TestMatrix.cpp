@@ -10,27 +10,55 @@
 #include <gtest/gtest.h>
 #include "Matrix.hpp"
 
-//////////////////
-//   Getters    //
-//////////////////
+/////////////////////////
+// MARK: Constructors
+/////////////////////////
+
+TEST(test_matrix, test_const_1)
+{
+    Matrix<int> A(2, 2, {1, 2,
+                         3, 4});
+    ASSERT_EQ(A.toString(), "{ { 1, 2 } { 3, 4 } }");
+}
+
+TEST(test_matrix, test_const_2)
+{
+    Matrix<int> A(4, 2, {1, 2,
+                         3, 4,
+                         5, 6,
+                         7, 8});
+    ASSERT_EQ(A.toString(), "{ { 1, 2 } { 3, 4 } { 5, 6 } { 7, 8 } }");
+}
+
+////////////////////
+// MARK: Getters
+////////////////////
 
 TEST(test_matrix, test_getters_1)
 {
     Matrix<int> A(1, 3, 1);
-    ASSERT_EQ(A.getRows(), 1);
-    ASSERT_EQ(A.getCols(), 3);
+    ASSERT_EQ(A.size_rows(), 1);
+    ASSERT_EQ(A.size_cols(), 3);
 }
 
 TEST(test_matrix, test_getters_2)
 {
     Matrix<int> A = Matrix<int>();
-    ASSERT_EQ(A.getRows(), 1);
-    ASSERT_EQ(A.getCols(), 1);
+    ASSERT_EQ(A.size_rows(), 1);
+    ASSERT_EQ(A.size_cols(), 1);
 }
 
-////////////////////////
-//   Element Access   //
-////////////////////////
+TEST(test_matrix, test_getters_3)
+{
+    Matrix<int> A(2, 2, {1, 2, 3, 4});
+    ASSERT_EQ(A.size_rows(), 2);
+    ASSERT_EQ(A.size_cols(), 2);
+}
+
+////////////////////////////
+// MARK: Element Access
+////////////////////////////
+
 
 TEST(test_matrix, test_index_operator_1)
 {
@@ -52,8 +80,16 @@ TEST(test_matrix, test_index_operator_3)
     ASSERT_THROW(A.at(2, 2), std::out_of_range);
 }
 
+TEST(test_matrix, test_index_operator_4)
+{
+    Matrix<int> A(3, 3, {0, 1, 2,
+                         3, 4, 5,
+                         6, 7, 8});
+    ASSERT_EQ(A.at(1, 1), 4);
+}
+
 ////////////////////////
-//     Scalar Ops     //
+// MARK: Scalar Ops
 ////////////////////////
 
 TEST(test_matrix, test_scalarOp_sum_1)
@@ -68,6 +104,15 @@ TEST(test_matrix, test_scalarOp_sum_2)
     Matrix<int> A = Matrix<int>();
     Matrix<int> B = A + 3;
     ASSERT_EQ(B.toString(), "{ { 3 } }");
+}
+
+TEST(test_matrix, test_scalarOp_sum_3)
+{
+    Matrix<int> A(3, 3, {0, 1, 2,
+                         3, 4, 5,
+                         6, 7, 8});
+    Matrix<int> B = A + 3;
+    ASSERT_EQ(B.toString(), "{ { 3, 4, 5 } { 6, 7, 8 } { 9, 10, 11 } }");
 }
 
 TEST(test_matrix, test_scalarOp_sub_1)
@@ -98,6 +143,15 @@ TEST(test_matrix, test_scalarOp_mult_2)
     ASSERT_EQ(B.toString(), "{ { 0 } }");
 }
 
+TEST(test_matrix, test_scalarOp_mult_3)
+{
+    Matrix<int> A(3, 3, {0, 1, 2,
+        3, 4, 5,
+        6, 7, 8});
+    Matrix<int> B = A * 3;
+    ASSERT_EQ(B.toString(), "{ { 0, 3, 6 } { 9, 12, 15 } { 18, 21, 24 } }");
+}
+
 TEST(test_matrix, test_scalarOp_div_1)
 {
     Matrix<double> A(3, 3, 14);
@@ -112,9 +166,9 @@ TEST(test_matrix, test_scalarOp_div_2)
     ASSERT_EQ(B.toString(), "{ { 0 } }");
 }
 
-////////////////////////////
-//    Matrix/Matrix Ops   //
-////////////////////////////
+//////////////////////////////
+// MARK: Matrix/Matrix Ops
+//////////////////////////////
 
 TEST(test_matrix, test_mat_matOp_sum_1)
 {
@@ -156,7 +210,6 @@ TEST(test_matrix, test_mat_matOp_subEQ_1)
     ASSERT_EQ(A.toString(), "{ { 7, 7, 7 } { 7, 7, 7 } { 7, 7, 7 } }");
 }
 
-
 TEST(test_matrix, test_mat_matOp_mult_1)
 {
     Matrix<double> A(3, 3, 2);
@@ -173,9 +226,9 @@ TEST(test_matrix, test_mat_matOp_multEQ_1)
     ASSERT_EQ(A.toString(), "{ { 30, 30, 30 } { 30, 30, 30 } { 30, 30, 30 } }");
 }
 
-////////////////////////////
-//    Matrix/Vector Ops   //
-////////////////////////////
+//////////////////////////////
+// MARK: Matrix/Vector Ops
+//////////////////////////////
 
 TEST(test_matrix, test_mat_vecOp_mult_1)
 {
@@ -193,5 +246,12 @@ TEST(test_matrix, test_mat_vecOp_mult_2)
     ASSERT_THROW(b = A * x, std::length_error);
 }
 
-//TODO -> WRITE UNIT TEST FOR DIAG METHOD
-
+TEST(test_matrix, test_mat_prop_1)
+{
+    Matrix<double> A(4, 4, {1,  2,  3,  4,
+                         5,  6,  7,  8,
+                         9, 10, 11, 12,
+                        13, 14, 15, 16});
+    std::vector<double> v = A.diag_vec();
+    ASSERT_EQ(v, std::vector<double>({1, 6, 11, 16}));
+}
